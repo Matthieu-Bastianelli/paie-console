@@ -1,13 +1,13 @@
 package dev.paie.console;
 
-import java.util.Scanner;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import dev.paie.ihm.Menu;
-import dev.paie.service.CotisationService;
-import dev.paie.service.CotisationServiceJpa;
 
 /**
- * Hello world!
+ * 1- Ajouter dépendence spring-context
+ * 2- Créer un context (pas de context, pas de spring) -> ici context annotation
+ * 3- Configurer le context soit à partir d'une classe soit à partir d'un fichier .xml (ici une classe).
  *
  */
 public class App {
@@ -15,12 +15,19 @@ public class App {
 	
 	public static void main(String[] args) {
 		
-		Scanner scanner = new Scanner(System.in);
-		CotisationService cotisService = new CotisationServiceJpa();
+		try(AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class)){ // auto-closable
+			
+			Menu menu = context.getBean(Menu.class);
+			menu.demarrer();
+			
+		}
 		
-		Menu menu = new Menu(scanner, cotisService);
-		menu.demarrer();
-	
-		scanner.close();
+//		Scanner scanner = new Scanner(System.in);
+//		CotisationService cotisService = new CotisationServiceMemoire();
+//		
+//		Menu menu = new Menu(scanner, cotisService);
+//		menu.demarrer();
+//	
+//		scanner.close();
 	}
 }

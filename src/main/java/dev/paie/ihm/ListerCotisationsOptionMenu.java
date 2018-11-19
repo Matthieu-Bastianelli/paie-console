@@ -1,7 +1,10 @@
 package dev.paie.ihm;
 
+import org.springframework.stereotype.Controller;
+
 import dev.paie.service.CotisationService;
 
+@Controller
 public class ListerCotisationsOptionMenu extends OptionMenu {
 
 	private CotisationService cotisService;
@@ -14,7 +17,7 @@ public class ListerCotisationsOptionMenu extends OptionMenu {
 	@Override
 	public void executer() {
 		System.out.println("Listage en cours");
-		this.cotisService.lister().forEach(cotis -> System.out.println(cotis.getCode()));
+		this.cotisService.lister().forEach(cotis -> System.out.println(cotis.getCode() + " " + cotis.getLibelle()+" "+cotis.getImposable()+" "+cotis.getTauxPatronal()+" "+cotis.getTauxSalarial()));
 		
 	}
 
